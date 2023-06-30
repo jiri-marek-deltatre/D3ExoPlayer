@@ -39,6 +39,8 @@ afterEvaluate {
                 credentials {
                     username = "jiri-marek-deltatre"
                     password = "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"
+//                    username = $gitUsername
+//                    password = $gitPassword
                 }
             }
         }
