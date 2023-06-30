@@ -20,7 +20,7 @@ afterEvaluate {
         publications {
             aar(MavenPublication) {
                 groupId 'com.google.android.exoplayer'
-                version '2.18.303'
+                version '2.18.304'
                 artifactId = releaseArtifactId
 
                 artifact(bundleReleaseAar)
@@ -37,10 +37,12 @@ afterEvaluate {
                 name "Github"
                 url "https://maven.pkg.github.com/jiri-marek-deltatre/D3ExoPlayer"
                 credentials {
-                    username = "jiri-marek-deltatre"
-                    password = "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"
-//                    username = $gitUsername
-//                    password = $gitPassword
+                    //you need to have global file gradle.properties in your /.gradle/ directory and put there
+                    //gitUsername = yourGithubUsername
+                    //gitPassword = yourGithubToken
+                    //PS: do not put there any ' or "
+                    username = "$gitUsername"
+                    password = "$gitPassword"
                 }
             }
         }
