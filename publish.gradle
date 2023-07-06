@@ -17,18 +17,14 @@ apply from: "$gradle.ext.exoplayerSettingsDir/missing_aar_type_workaround.gradle
 
 afterEvaluate {
     publishing {
-        repositories {
-            maven {
-                url = findProperty('mavenRepo') ?: "${buildDir}/repo"
-            }
-        }
         publications {
             release(MavenPublication) {
                 from components.release
                 artifact androidSourcesJar
-                groupId = 'com.google.android.exoplayer'
+                groupId 'com.deltatre.android.exoplayer'
                 artifactId = releaseArtifactId
-                version releaseVersion
+                version '2.18.7'
+
                 pom {
                     name = releaseArtifactId
                     description = releaseDescription
@@ -45,18 +41,33 @@ afterEvaluate {
                         }
                     }
                     scm {
-                        connection = 'scm:git:https://github.com/google/ExoPlayer.git'
-                        url = 'https://github.com/google/ExoPlayer'
+                        connection = 'scm:git:https://github.com/rodrigo-queiroz-deltatre/ExoPlayer.git'
+                        url = 'https://github.com/rodrigo-queiroz-deltatre/ExoPlayer'
                     }
                     withXml {
                         addMissingAarTypeToXml(it)
                     }
                 }
             }
+
+        }
+        repositories {
+            mavenLocal()
+            maven {
+                name "Github"
+                url "https://maven.pkg.github.com/rodrigo-queiroz-deltatre/ExoPlayer"
+                credentials {
+                    //you need to have global file gradle.properties in your /.gradle/ directory and put there
+                    //gpr_user = yourGithubUsername
+                    //gpr_key = yourGithubToken
+                    //PS: do not put there any ' or "
+                    username = project.findProperty("gpr_user") ?: System.getenv("EXOPLAYER_REPOSITORY_USERNAME")
+                    password = project.findProperty("gpr_key") ?: System.getenv("EXOPLAYER_REPOSITORY_TOKEN")
+                }
+            }
         }
     }
 }
-tasks.withType(PublishToMavenRepository) { it.dependsOn lint, test }
 
 task androidSourcesJar(type: Jar) {
     archiveClassifier.set('sources')
