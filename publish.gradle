@@ -23,7 +23,7 @@ afterEvaluate {
                 artifact androidSourcesJar
                 groupId 'com.deltatre.android.exoplayer'
                 artifactId = releaseArtifactId
-                version '2.18.7'
+                version '2.18.7-d3'
 
                 pom {
                     name = releaseArtifactId
@@ -41,8 +41,8 @@ afterEvaluate {
                         }
                     }
                     scm {
-                        connection = 'scm:git:https://github.com/rodrigo-queiroz-deltatre/ExoPlayer.git'
-                        url = 'https://github.com/rodrigo-queiroz-deltatre/ExoPlayer'
+                        connection = 'scm:git:https://github.com/jiri-marek-deltatre/D3ExoPlayer.git'
+                        url = 'https://github.com/jiri-marek-deltatre/D3ExoPlayer'
                     }
                     withXml {
                         addMissingAarTypeToXml(it)
@@ -55,14 +55,14 @@ afterEvaluate {
             mavenLocal()
             maven {
                 name "Github"
-                url "https://maven.pkg.github.com/rodrigo-queiroz-deltatre/ExoPlayer"
+                url "https://maven.pkg.github.com/jiri-marek-deltatre/D3ExoPlayer"
                 credentials {
                     //you need to have global file gradle.properties in your /.gradle/ directory and put there
                     //gpr_user = yourGithubUsername
                     //gpr_key = yourGithubToken
                     //PS: do not put there any ' or "
-                    username = project.findProperty("gpr_user") ?: System.getenv("EXOPLAYER_REPOSITORY_USERNAME")
-                    password = project.findProperty("gpr_key") ?: System.getenv("EXOPLAYER_REPOSITORY_TOKEN")
+                    username = project.findProperty("gitUsername") ?: System.getenv("EXOPLAYER_REPOSITORY_USERNAME")
+                    password = project.findProperty("gitPassword") ?: System.getenv("EXOPLAYER_REPOSITORY_TOKEN")
                 }
             }
         }
